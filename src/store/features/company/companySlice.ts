@@ -14,10 +14,15 @@ export const companiesSlice = createSlice({
       state.companies.push(action.payload)
 
     },
+    removeCompany: (state, action: PayloadAction<String[]>) => {
+      for (let i = 0; i < action.payload.length; i++) {
+        state.companies = [...state.companies.filter(item => item.id !== action.payload[i])];
+      }
+    }
   },
 })
 
-export const { addCompany } = companiesSlice.actions
+export const { addCompany, removeCompany } = companiesSlice.actions
 
 export const selectCount = (state: RootState) => state.companies
 

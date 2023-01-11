@@ -1,0 +1,24 @@
+@import "src/colors";
+
+.btn {
+  display: flex;
+  align-items: center;
+  padding: 14px 25px;
+  min-width: 146px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  border: 1px solid;
+  &.disabled {
+    cursor: default;
+    opacity: 0.4;
+  }
+  &.addStyle {
+    color: $purple;
+    border-color: $purple;
+  }
+  &.deleteStyle {
+    border-color: #F06A4D;
+    color: #F06A4D ;
+  }
+}

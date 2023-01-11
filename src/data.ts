@@ -1,3 +1,9 @@
+export const companiesTableTitles = [
+  {id: 1, title: 'Название'},
+  {id:2, title:'Кол-во сотрудников'},
+  {id: 3, title:'Адрес'}
+]
+
 export const data = [
   {
     "id": "41434849-53cf-4877-bf74-045f61c96d87",

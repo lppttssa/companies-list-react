@@ -1,0 +1,17 @@
+@import "src/colors";
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  .checkbox {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    background: $purple;
+    &:focus {
+
+    }
+  }
+}
