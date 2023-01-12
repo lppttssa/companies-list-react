@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .btnIcon {
+    align-self: center;
+    g {
+      path {
+        fill: #FFFFFF;
+      }
+    }
+  }
+}

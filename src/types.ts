@@ -6,6 +6,11 @@ export type CompanyType = {
   employees: EmployeeType[],
 }
 
+export type NewCompanyType = {
+  title: string,
+  address: string,
+}
+
 export type CompanyStateType = {
   companies: CompanyType[],
 }

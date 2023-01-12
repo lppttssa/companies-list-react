@@ -3,8 +3,9 @@
 .btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 14px 25px;
-  min-width: 146px;
+  min-width: 183px;
   font-size: 14px;
   font-weight: 600;
   line-height: 18px;
@@ -20,5 +21,9 @@
   &.deleteStyle {
     border-color: #F06A4D;
     color: #F06A4D ;
+  }
+  &.filled {
+    background-color: $purple;
+    color: #FFFFFF;
   }
 }

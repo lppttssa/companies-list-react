@@ -14,6 +14,13 @@
   margin-bottom: 20px;
   .addBtn {
     margin-right: 20px;
+    .editIcon {
+      g {
+        path {
+          fill: #FFFFFF;
+        }
+      }
+    }
   }
 }
 
@@ -43,6 +50,10 @@
     text-align: left;
     background-color: #FFFFFF;
     border-bottom: 1px solid #C8C5D1;
+    height: 78px;
+    &.activeRow {
+      background-color: rgba(200, 197, 209, 0.2);
+    }
     .cell {
       padding-top: 20px;
       padding-bottom: 20px;

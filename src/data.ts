@@ -4,6 +4,12 @@ export const companiesTableTitles = [
   {id: 3, title:'Адрес'}
 ]
 
+export const employeesTableTitles = [
+  {id: 1, title: 'Фамилия'},
+  {id: 2, title: 'Имя'},
+  {id: 3, title: 'Должность'}
+]
+
 export const data = [
   {
     "id": "41434849-53cf-4877-bf74-045f61c96d87",

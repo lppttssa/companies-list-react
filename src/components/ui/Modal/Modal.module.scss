@@ -1,0 +1,64 @@
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  animation: appear .4s;
+  .dialog {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    background: #FFFFFF;
+    animation: slide-in .7s;
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 22px;
+      border-bottom: 1px solid #dbdbdb;
+      .title {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 25px;
+        color: #333333;
+      }
+      .close {
+        cursor: pointer;
+      }
+    }
+    .content {
+      padding: 20px 22px;
+      overflow: auto;
+    }
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    top: -300px;
+  }
+  40% {
+    top: 40px
+  }
+  65% {
+    top: -20px;
+  }
+  100% {
+    top: 0;
+  }
+}
