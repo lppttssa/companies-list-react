@@ -14,16 +14,17 @@ import AddEmployee from "../components/ui/Modal/ModalContent/AddContent/AddEmplo
 export const HomePage = ():JSX.Element => {
   const companies = useAppSelector((state) => state.companies.companies);
   const dispatch = useAppDispatch();
-  const [isModalShown, setModalShown] = useState(false);
+  const [isCompanyModalShown, setCompanyModalShown] = useState(false);
+  const [isEmployeeModalShown, setEmployeeModalShown] = useState(false);
   const [chosenCompany, setChosenCompany] = useState('');
 
   const handleCompanyAdd = (item: any) => {
-    setModalShown(false);
+    setCompanyModalShown(false);
     dispatch(addCompany(item));
   }
 
   const handleEmployeeAdd = (item: NewEmployeeType) => {
-    setModalShown(false);
+    setEmployeeModalShown(false);
     dispatch(addEmployee({companyId: chosenCompany, employee: item}))
   }
 
@@ -31,26 +32,29 @@ export const HomePage = ():JSX.Element => {
     <div className={cn('container', s.homePage)}>
       <Table
         tableTitle='Компании'
+        tableVariant='companies'
         tableColumnTitles={companiesTableTitles}
         tableData={companies}
         removeItem={(id: string[]) => dispatch(removeCompany(id))}
-        addItem={(item: CompanyType) => dispatch(addCompany(item))}
         modalInner={<AddCompany onClick={handleCompanyAdd}/>}
-        isModalShown={isModalShown}
-        setModalShown={setModalShown}
+        isModalShown={isCompanyModalShown}
+        setModalShown={setCompanyModalShown}
         setChosenCompany={setChosenCompany}
         editItem={(item: CompanyType) => dispatch(editCompany(item))}
+        className={s.firstTable}
       />
       <Table
         tableTitle='Сотрудники'
+        tableVariant='employees'
         tableColumnTitles={employeesTableTitles}
         tableData={companies.find(item => item.id === chosenCompany)?.employees || []}
         removeItem={(id: string[]) => dispatch(removeEmployee({companyId: chosenCompany, employees: id}))}
-        addItem={() => console.log()}
         modalInner={<AddEmployee onClick={handleEmployeeAdd} />}
-        isModalShown={false}
-        setModalShown={setModalShown}
+        isModalShown={isEmployeeModalShown}
+        setModalShown={setEmployeeModalShown}
         editItem={(item: EmployeeType) => dispatch(editEmployee({companyId: chosenCompany, employee: item}))}
+        className={s.secondTable}
+        isCompanyChosen={!!chosenCompany?.length}
       />
     </div>
   );

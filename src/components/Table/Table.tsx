@@ -1,6 +1,5 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import s from './Table.module.scss';
-import {CompanyType} from "../../types";
 import {Checkbox} from "../ui/Checkbox/Checkbox";
 import {Button} from "../ui/Button/Button";
 import {AddIcon} from "../ui/icons/AddIcon";
@@ -12,22 +11,24 @@ import cn from "classnames";
 
 type TableProps = {
   tableTitle: string,
+  tableVariant: 'companies' | 'employees',
   tableColumnTitles: {id: number, title: string}[],
   /*tableData: CompanyType[],*/
   tableData: any,
   removeItem: (id: string[]) => void,
-  addItem: (item: any) => void,
   isModalShown: boolean,
   setModalShown: Dispatch<SetStateAction<boolean>>,
   modalInner: React.ReactNode,
   setChosenCompany?: Dispatch<SetStateAction<string>>,
   editItem: (item: any) => void,
+  className?: string,
+  isCompanyChosen?: boolean,
 };
 
 export const Table = (props: TableProps):JSX.Element => {
   const {
-    tableTitle, tableColumnTitles, tableData, removeItem, addItem, modalInner, isModalShown,
-    setModalShown, setChosenCompany, editItem
+    tableTitle, tableColumnTitles, tableData, removeItem, modalInner, isModalShown,
+    setModalShown, setChosenCompany, editItem, className, isCompanyChosen, tableVariant
   } = props;
 
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
@@ -92,21 +93,29 @@ export const Table = (props: TableProps):JSX.Element => {
               <Input
                 type={'text'}
                 label={''}
-                onChange={(e) => handleInputChange(e, item.id, 'title')}
-                value={item.title}
+                onChange={(e) => handleInputChange(e, item.id, tableVariant==='companies' ? 'title' : 'surname')}
+                value={item.title || item.surname}
               /> :
               (item.title || item.surname)}
           </td>
           <td className={s.cell}>
-            {item.numberOfPeople?.toString() || item.name}
+            {tableVariant === 'employees' ?
+              isEditMode ?
+                <Input
+                  type={'text'}
+                  label={''}
+                  onChange={(e) => handleInputChange(e, item.id, 'name')}
+                  value={item.name}
+                />   :
+                item.name : item.numberOfPeople?.toString()}
           </td>
           <td className={s.cell}>
             {isEditMode ?
               <Input
                 type={'text'}
                 label={''}
-                onChange={(e) => handleInputChange(e, item.id, 'address')}
-                value={item.address}
+                onChange={(e) => handleInputChange(e, item.id, tableVariant==='companies' ? 'address' : 'position')}
+                value={item.address || item.position}
               /> :
               (item.address || item.position)}
           </td>
@@ -115,17 +124,24 @@ export const Table = (props: TableProps):JSX.Element => {
     </table>
   );
 
+
   return (
-    <div>
-      <h2 className={s.title}>{tableData.length ? tableTitle : `К сожалению, данных '${tableTitle}' нет`}</h2>
+    <div className={className}>
+      {(tableVariant === 'companies' || isCompanyChosen) &&
+        <h2 className={s.title}>
+          {tableData.length ? tableTitle : `К сожалению, данных '${tableTitle}' нет`}
+        </h2>
+      }
       <div className={s.btnContainer}>
-        <Button
-          className={s.addBtn}
-          icon={<AddIcon />}
-          text='Добавить'
-          style='add'
-          onClick={() => setModalShown(true)}
-        />
+        {(tableVariant === 'companies' || isCompanyChosen) &&
+          <Button
+            className={s.addBtn}
+            icon={<AddIcon />}
+            text='Добавить'
+            style='add'
+            onClick={() => setModalShown(true)}
+          />
+        }
         {!!tableData.length &&
           <>
             <Button
@@ -145,9 +161,13 @@ export const Table = (props: TableProps):JSX.Element => {
         }
       </div>
       {!!tableData.length && table}
-      {isModalShown && <Modal title={'Добавить компанию'}
-                          content={modalInner}
-                          onClose={() => setModalShown(false)} />}
+      {isModalShown &&
+        <Modal
+          title={'Добавить'}
+          content={modalInner}
+          onClose={() => setModalShown(false)}
+        />
+      }
     </div>
   );
 };

@@ -47,8 +47,10 @@ export const companiesSlice = createSlice({
     editEmployee: (state, action: PayloadAction<{companyId: string, employee: EmployeeType}>) => {
       const newState = [...state.companies];
       const companyIndex = newState.findIndex(item => item.id === action.payload.companyId);
-      newState[companyIndex].employees = {...newState[companyIndex].employees
-        .map(item => item.id === action.payload.employee.id ? action.payload.employee : item)}
+      newState[companyIndex].employees = [...newState[companyIndex].employees
+        .map(item => item.id === action.payload.employee.id ? action.payload.employee : item)];
+      console.log('newState', newState)
+      state.companies = [...newState];
     },
   },
 })
