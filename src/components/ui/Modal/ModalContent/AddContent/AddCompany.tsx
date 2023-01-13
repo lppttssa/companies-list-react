@@ -17,13 +17,17 @@ export const AddCompany = (props: AddCompanyProps) => {
 
   return (
     <form className={s.form} onSubmit={e => { e.preventDefault(); }}>
-      <Input onChange={(e) => setName(e.target.value)} value={name} type='text' label='Название компании' />
-      <Input onChange={(e) => setAddress(e.target.value)} value={address} type='text' label='Адрес'/>
-      <Button icon={<AddIcon
-                      className={s.btnIcon} />}
-                      text='Добавить' style='filled'
-                      onClick={() => onClick({title: name, address: address})}
-                    />
+      <Input className={s.input} onChange={(e) => setName(e.target.value)}
+        value={name} type='text' label='Название компании' />
+      <Input className={s.input} onChange={(e) => setAddress(e.target.value)}
+        value={address} type='text' label='Адрес'
+      />
+      <Button
+        icon={<AddIcon
+        className={s.btnIcon} />}
+        text='Добавить' style='filled'
+        onClick={() => onClick({title: name, address: address})}
+      />
     </form>
   );
 };

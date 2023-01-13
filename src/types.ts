@@ -4,20 +4,26 @@ export type CompanyType = {
   numberOfPeople: number,
   address: string,
   employees: EmployeeType[],
-}
+};
 
 export type NewCompanyType = {
   title: string,
   address: string,
-}
+};
+
+export type NewEmployeeType = {
+  name: string,
+  surname: string,
+  position: string,
+};
 
 export type CompanyStateType = {
   companies: CompanyType[],
-}
+};
 
 export type EmployeeType = {
   id: string,
   surname: string,
   name: string,
   position: string,
-}
+};

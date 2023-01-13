@@ -13,7 +13,8 @@ import cn from "classnames";
 type TableProps = {
   tableTitle: string,
   tableColumnTitles: {id: number, title: string}[],
-  tableData: CompanyType[],
+  /*tableData: CompanyType[],*/
+  tableData: any,
   removeItem: (id: string[]) => void,
   addItem: (item: any) => void,
   isModalShown: boolean,
@@ -41,7 +42,7 @@ export const Table = (props: TableProps):JSX.Element => {
 
   const handleAllItemsCheck = (isChecked: boolean) => {
     if (isChecked) {
-      setCheckedItems(tableData.map(item => item.id))
+      setCheckedItems(tableData.map((item: any) => item.id))
     } else {
       setCheckedItems([]);
     }
@@ -60,9 +61,8 @@ export const Table = (props: TableProps):JSX.Element => {
       setCheckedItems(checkedItems.filter(check => check !== id));
   }
 
-  console.log(tableData)
   const handleInputChange = (e: any, id: string, field: string) => {
-    const index = tableData.findIndex(item => item.id === id);
+    const index = tableData.findIndex((item: any) => item.id === id);
     const newObj = {};
     // @ts-ignore
     newObj[field] = e.target.value;
@@ -80,7 +80,7 @@ export const Table = (props: TableProps):JSX.Element => {
           <th key={item.id} className={s.cell}>{item.title}</th>
         ))}
       </tr>
-      {tableData.map(item => (
+      {tableData.map((item: any) => (
         <tr key={item.id} className={cn(s.tableRow, { [s.activeRow]: checkedItems.includes(item.id) })}>
           <td className={s.cell}>
             <Checkbox isChecked={isAllItemsChecked}
@@ -95,10 +95,10 @@ export const Table = (props: TableProps):JSX.Element => {
                 onChange={(e) => handleInputChange(e, item.id, 'title')}
                 value={item.title}
               /> :
-              item.title}
+              (item.title || item.surname)}
           </td>
           <td className={s.cell}>
-            {item.numberOfPeople}
+            {item.numberOfPeople?.toString() || item.name}
           </td>
           <td className={s.cell}>
             {isEditMode ?
@@ -108,7 +108,7 @@ export const Table = (props: TableProps):JSX.Element => {
                 onChange={(e) => handleInputChange(e, item.id, 'address')}
                 value={item.address}
               /> :
-              item.address}
+              (item.address || item.position)}
           </td>
         </tr>
       ))}
@@ -116,7 +116,7 @@ export const Table = (props: TableProps):JSX.Element => {
   );
 
   return (
-    <>
+    <div>
       <h2 className={s.title}>{tableData.length ? tableTitle : `К сожалению, данных '${tableTitle}' нет`}</h2>
       <div className={s.btnContainer}>
         <Button
@@ -148,6 +148,6 @@ export const Table = (props: TableProps):JSX.Element => {
       {isModalShown && <Modal title={'Добавить компанию'}
                           content={modalInner}
                           onClose={() => setModalShown(false)} />}
-    </>
+    </div>
   );
 };
