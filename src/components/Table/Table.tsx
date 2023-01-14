@@ -8,6 +8,7 @@ import {Modal} from "../ui/Modal/Modal";
 import {EditIcon} from "../ui/icons/EditIcon";
 import { Input } from '../ui/Input/Input';
 import cn from "classnames";
+import {Loader} from "../ui/Loader/Loader";
 
 type TableProps = {
   tableTitle: string,
