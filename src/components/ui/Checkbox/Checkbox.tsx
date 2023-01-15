@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './Checkbox.module.scss';
 
 type CheckboxProps = {
   label?: string,
-  onClick: (e: any) => void,
+  onClick: (isChecked: boolean) => void,
   isChecked?: boolean,
 };
 
@@ -18,7 +18,7 @@ export const Checkbox = (props: CheckboxProps): JSX.Element => {
     setCheck(isChecked || false);
   }, [isChecked]);
 
-  const handleCheckClick = (e: any) => {
+  const handleCheckClick = (e: ChangeEvent<HTMLInputElement>) => {
     setCheck(!check);
     onClick(e.target.checked);
   }

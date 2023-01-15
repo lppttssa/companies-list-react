@@ -15,12 +15,6 @@ export function useInfiniteScroll() {
   );
 
   useEffect(() => {
-    const option = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 1.0,
-    };
-
     if (loadMoreRef.current) observer.current.observe(loadMoreRef.current);
   }, [loadMoreRef]);
 

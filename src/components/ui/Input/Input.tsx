@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Input.module.scss';
 import cn from "classnames";
 
@@ -6,7 +6,7 @@ type InputProps = {
   type: 'text' | 'number',
   label: string,
   value?: string | number,
-  onChange: (e: any) => void,
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void,
   className?: string,
 }
 

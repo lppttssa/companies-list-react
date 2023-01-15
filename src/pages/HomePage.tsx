@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './HomePage.module.scss';
 import {useAppDispatch, useAppSelector} from "../store/hooks";
 import {addCompany, removeCompany, editCompany,
   removeEmployee, addEmployee, editEmployee} from '../store/features/company/companySlice'
 import {Table} from "../components/Table/Table";
-import {companiesTableTitles, data, employeesTableTitles} from "../data";
+import {companiesTableTitles, employeesTableTitles} from "../data";
 import cn from 'classnames'
-import {CompanyType, EmployeeType, NewEmployeeType} from "../types";
+import {CompanyType, EmployeeType, NewCompanyType, NewEmployeeType} from "../types";
 import AddCompany from "../components/ui/Modal/ModalContent/AddContent/AddCompany";
 import AddEmployee from "../components/ui/Modal/ModalContent/AddContent/AddEmployee";
 import {Loader} from "../components/ui/Loader/Loader";
@@ -36,7 +36,7 @@ export const HomePage = ():JSX.Element => {
   }, [page])
 
 
-  const handleCompanyAdd = (item: any) => {
+  const handleCompanyAdd = (item: NewCompanyType) => {
     setCompanyModalShown(false);
     dispatch(addCompany(item));
   }
@@ -59,7 +59,7 @@ export const HomePage = ():JSX.Element => {
           isModalShown={isCompanyModalShown}
           setModalShown={setCompanyModalShown}
           setChosenCompany={setChosenCompany}
-          editItem={(item: CompanyType) => dispatch(editCompany(item))}
+          editItem={(item) => dispatch(editCompany(item as unknown as CompanyType))}
           className={s.firstTable}
         />
         <Table
@@ -71,12 +71,15 @@ export const HomePage = ():JSX.Element => {
           modalInner={<AddEmployee onClick={handleEmployeeAdd} />}
           isModalShown={isEmployeeModalShown}
           setModalShown={setEmployeeModalShown}
-          editItem={(item: EmployeeType) => dispatch(editEmployee({companyId: chosenCompany, employee: item}))}
+          editItem={(item) =>
+            dispatch(editEmployee({companyId: chosenCompany, employee: item as unknown as EmployeeType}))}
           className={s.secondTable}
           isCompanyChosen={!!chosenCompany?.length}
         />
       </div>
-      <div ref={loadMoreRef} className={s.scrollRef}>{isDataLoading && <Loader />}</div>
+      <div ref={loadMoreRef} className={s.scrollRef}>
+        {isDataLoading && page !== 1 && companies.length > page * ITEMS_PER_PAGE - ITEMS_PER_PAGE  && <Loader />}
+      </div>
     </div>
   );
 };

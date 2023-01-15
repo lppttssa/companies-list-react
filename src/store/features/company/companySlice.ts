@@ -49,7 +49,6 @@ export const companiesSlice = createSlice({
       const companyIndex = newState.findIndex(item => item.id === action.payload.companyId);
       newState[companyIndex].employees = [...newState[companyIndex].employees
         .map(item => item.id === action.payload.employee.id ? action.payload.employee : item)];
-      console.log('newState', newState)
       state.companies = [...newState];
     },
   },
